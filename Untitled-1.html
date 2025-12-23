@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我喜欢的网站分享 - 姜欣宇</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        body {
+            background-color: #f9f7f5;
+            color: #4a4a4a;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        /* 头部渐变+背景动画（莫兰迪粉蓝渐变） */
+        .header {
+            background: linear-gradient(135deg, #c8d8e4 0%, #e8d9c7 100%);
+            color: #5c6e70;
+            text-align: center;
+            padding: 3rem 0;
+            position: relative;
+            overflow: hidden;
+            animation: headerGlow 8s ease-in-out infinite alternate;
+        }
+        @keyframes headerGlow {
+            0% { background: linear-gradient(135deg, #c8d8e4 0%, #e8d9c7 100%); }
+            100% { background: linear-gradient(135deg, #e8d9c7 0%, #c8d8e4 100%); }
+        }
+        .header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.2);
+            transform: skewX(-20deg);
+            animation: headerShine 3s ease-in-out infinite;
+        }
+        @keyframes headerShine {
+            100% { left: 100%; }
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        .header p {
+            font-size: 1.2rem;
+            position: relative;
+        }
+        /* 导航栏动画强化（莫兰迪灰蓝） */
+        .nav {
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        .nav:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        }
+        .nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 1rem 0;
+        }
+        .nav li {
+            margin: 0 0.8rem;
+        }
+        .nav a {
+            text-decoration: none;
+            color: #7d97a0;
+            font-weight: 500;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .nav a::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #9fb3bd;
+            transition: width 0.3s ease;
+        }
+        .nav a:hover {
+            color: #627d88;
+            transform: translateY(-2px);
+            background-color: rgba(200, 216, 228, 0.15);
+        }
+        .nav a:hover::after {
+            width: 100%;
+        }
+        /* 导航当前高亮（点击后） */
+        .nav a.active {
+            background-color: #c8d8e4;
+            color: #5c6e70;
+        }
+        /* 主体容器 */
+        .container {
+            width: 85%;
+            margin: 3rem auto;
+        }
+        /* 网站卡片动画升级+图片加载动画（柔和白灰底色） */
+        .website-card {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            transition: all 0.5s ease;
+            opacity: 0;
+            animation: cardFadeIn 0.8s ease forwards;
+            border: 1px solid #f0ebe6;
+        }
+        .website-card:nth-child(1) { animation-delay: 0.1s; }
+        .website-card:nth-child(2) { animation-delay: 0.2s; }
+        .website-card:nth-child(3) { animation-delay: 0.3s; }
+        .website-card:nth-child(4) { animation-delay: 0.4s; }
+        .website-card:nth-child(5) { animation-delay: 0.5s; }
+        .website-card:nth-child(6) { animation-delay: 0.6s; }
+        .website-card:nth-child(n+7) { animation-delay: 0.7s; }
+        @keyframes cardFadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .website-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            background: linear-gradient(to right, #fff, #faf8f5);
+        }
+        .website-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+            position: relative;
+            border: 1px solid #f0ebe6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f5f2ee;
+        }
+        /* 图片加载动画 */
+        .website-img::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #f5f2ee;
+            animation: imgLoad 1.5s ease forwards;
+            z-index: 1;
+        }
+        @keyframes imgLoad {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        .website-img img {
+            width: 80%;
+            height: auto;
+            object-fit: contain;
+            transition: transform 0.8s ease;
+            position: relative;
+            z-index: 2;
+        }
+        .website-card:hover .website-img img {
+            transform: scale(1.2) rotate(3deg);
+        }
+        .website-info {
+            flex: 1;
+        }
+        .website-info h3 {
+            color: #627d88;
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .website-info h3:hover {
+            color: #4a6570;
+        }
+        .website-info .tag {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background-color: #e8d9c7;
+            color: #706253;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+            animation: tagPulse 2s ease infinite alternate;
+        }
+        @keyframes tagPulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+        .website-info p {
+            margin-bottom: 1rem;
+            text-indent: 2em;
+            line-height: 1.8;
+        }
+        .website-info a {
+            display: inline-block;
+            text-decoration: none;
+            color: #fff;
+            background-color: #9fb3bd;
+            padding: 0.6rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .website-info a::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -50%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.2);
+            transform: skewX(-20deg);
+            transition: left 0.5s ease;
+        }
+        .website-info a:hover {
+            background-color: #8ba2af;
+            transform: translateX(5px);
+        }
+        .website-info a:hover::before {
+            left: 150%;
+        }
+        /* 底部样式（和头部配色呼应） */
+        .footer {
+            background: linear-gradient(135deg, #e8d9c7 0%, #c8d8e4 100%);
+            color: #5c6e70;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            animation: headerGlow 8s ease-in-out infinite alternate reverse;
+        }
+        /* 锚点平滑滚动 */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部：学号、姓名、简介 -->
+    <div class="header">
+        <h1>我喜欢的网站分享</h1>
+        <p>学号：202425180118 | 姓名：姜欣宇 | 简介：长沙大二在读女生，热爱美食，阅读，旅游。平时喜爱浏览各种网站。</p>
+    </div>
+
+    <!-- 12个导航系统 -->
+    <div class="nav">
+        <ul>
+            <li><a href="#home" class="active">首页</a></li>
+            <li><a href="#food">美食网站</a></li>
+            <li><a href="#study">学习网站</a></li>
+            <li><a href="#ent">娱乐网站</a></li>
+            <li><a href="#travel">旅行网站</a></li>
+            <li><a href="#read">阅读网站</a></li>
+            <li><a href="#design">设计网站</a></li>
+            <li><a href="#share">同学分享</a></li>
+            <li><a href="#rank">推荐排行</a></li>
+            <li><a href="#skill">使用技巧</a></li>
+            <li><a href="#collect">收藏夹</a></li>
+            <li><a href="#about">关于本站</a></li>
+        </ul>
+    </div>
+
+    <!-- 主体内容（官方LOGO+丰富介绍） -->
+    <div class="container">
+        <!-- 首页 -->
+        <section id="home" class="website-card">
+            <div class="website-img">
+                <img src="https://cdn-icons-png.flaticon.com/128/1051/1051326.png" alt="首页图标">
+            </div>
+            <div class="website-info">
+                <h3>网站分享首页</h3>
+                <p>这里整理了我日常访问频率最高的6个网站，涵盖美食、学习、娱乐、旅行、阅读、设计六大领域，每一个网站都陪伴我度过了大学时光里的很多闲暇时刻。其中有学号202425180117的丁若兰同学最喜欢的美食网站，也有学号202425180119的刘瑀涵同学推荐给我的学习网站，一款小小的网页，竟然串联起了我们三个同学的不同喜好，也让这些网站在我心里多了一份特别的意义。</p>
+            </div>
+        </section>
+
+        <!-- 1. 下厨房（丁若兰最喜欢的网站） -->
+        <section id="food" class="website-card">
+            <div class="website-img">
+                <img src="https://ts1.tc.mm.bing.net/th/id/R-C.8fc2ba5ec61c3b389377c04c348182a9?rik=HXMb4bJjDfz%2bwA&riu=http%3a%2f%2fpic.9663.com%2fupload%2f2022-6%2f20226161746416539.png&ehk=y4hH7RrwJert4WFY2Km1dtXyJ0sQxqzbQoiX3AqmTOY%3d&risl=&pid=ImgRaw&r=0" alt="下厨房LOGO">
+            </div>
+            <div class="website-info">
+                <span class="tag">丁若兰同学最喜欢的网站</span>
+                <h3>下厨房</h3>
+                <p>作为国内最具人气的美食菜谱分享平台，下厨房聚集了数千万热爱美食的用户，这里既有家常菜的简易做法，也有网红甜品、地方特色菜的详细教程，甚至还有专业厨师分享的米其林级别料理技巧。对于我这个长沙大二学生来说，最爱的就是在上面搜索绿豆糕、糖油粑粑、臭豆腐等本地特色小吃的配方，跟着步骤一步步复刻，每次成功做出美味都会收获满满的成就感。丁若兰同学更是这个网站的忠实粉丝，她每天都会花半小时逛一逛烘焙专区，收藏各种蛋糕、饼干的食谱，周末还会约着同学一起在家动手制作，她说在搅拌、烘烤的过程中，能感受到满满的治愈感。</p>
+                <a href="https://www.xiachufang.com" target="_blank">点击访问下厨房</a>
+            </div>
+        </section>
+
+        <!-- 2. 中国大学MOOC（刘瑀涵推荐的网站） -->
+        <section id="study" class="website-card">
+            <div class="website-img">
+                <img src="https://ts1.tc.mm.bing.net/th/id/R-C.e3bc97e22bc924ccd3bc28abfc64d66b?rik=NGoRMWbzaCvWWA&riu=http%3a%2f%2fcdn-img.sm-tc.cn%2f%3fsrc%3dl4uLj8XQ0I%252BWnNGPm5CIkZyc0ZyQktCKj5OQnpvQzc%252FNz9LN0M3Pzc%252FNzc7Nz8zKzM%252FOyc3G0ZWPmA%253D%253D%26restype%3d3%26from%3dderive%26pi%3d%26v%3d1&ehk=f0jz3M81tr9NjXYfNjdKYFPs2aa7yfXEdnGYALY0zdM%3d&risl=&pid=ImgRaw&r=0" alt="中国大学MOOCLOGO">
+            </div>
+            <div class="website-info">
+                <span class="tag">刘瑀涵同学推荐的网站</span>
+                <h3>中国大学MOOC</h3>
+                <p>中国大学MOOC是由教育部主导、网易公司运营的在线教育平台，汇聚了全国600多所顶尖高校的优质课程资源，涵盖计算机、经管、文学、工科、艺术等十几个学科门类，从基础的大学英语、高等数学，到专业的Python编程、MATLAB数据处理，再到趣味的美食文化、电影赏析，几乎能找到所有想要学习的内容。刘瑀涵同学是这个平台的学霸级用户，她推荐我用这个网站学习专业相关的课程，她说上面的课程不仅有高清的视频讲解，还有配套的课件、习题和在线答疑，能帮助我们巩固课堂知识。跟着她的推荐，我选修了《Python数据分析与可视化》和《中国传统美食文化》两门课，前者提升了我的专业技能，后者让我了解了很多传统糕点的历史渊源，对我研究美食的爱好也有很大的帮助。</p>
+                <a href="https://www.icourse163.org" target="_blank">点击访问中国大学MOOC</a>
+            </div>
+        </section>
+
+        <!-- 3. 哔哩哔哩 -->
+        <section id="ent" class="website-card">
+            <div class="website-img">
+                <img src="https://www.bilibili.com/favicon.ico" alt="哔哩哔哩LOGO">
+            </div>
+            <div class="website-info">
+                <h3>哔哩哔哩</h3>
+                <p>哔哩哔哩是国内年轻人最喜爱的综合视频平台，最初以动漫、游戏内容起家，如今已经发展成涵盖生活、美食、知识、科技、影视等多个分区的多元化平台。对于我这个美食爱好者来说，最常逛的就是美食探店和美食制作分区，这里有很多长沙本地的美食博主，他们会深入街头巷尾，发掘那些藏在老城区里的小众餐馆，从一碗热腾腾的米粉到一块酥脆的糖油粑粑，都能在视频里看到详细的测评和推荐。除了美食内容，我还会在上面看学习类的视频，比如MATLAB教程、Python实战案例，这些视频大多是由学长学姐或者行业大佬分享的，讲解风格轻松有趣，比枯燥的课本更容易让人理解。此外，平台上还有很多纪录片、综艺和动漫，是我课余时间放松心情的好去处。</p>
+                <a href="https://www.bilibili.com" target="_blank">点击访问哔哩哔哩</a>
+            </div>
+        </section>
+
+        <!-- 4. 马蜂窝 -->
+        <section id="travel" class="website-card">
+            <div class="website-img">
+                <img src="https://www.mafengwo.cn/favicon.ico" alt="马蜂窝LOGO">
+            </div>
+            <div class="website-info">
+                <h3>马蜂窝</h3>
+                <p>马蜂窝是国内专业的自由行攻略分享平台，以“自由行”为核心，为用户提供全球各地的景点介绍、美食推荐、行程规划、酒店预订等一站式服务。和其他旅行平台不同的是，马蜂窝的攻略大多来自真实用户的旅行体验，内容更加接地气、更具参考价值。作为一个热爱美食的长沙学生，我最喜欢在上面搜索长沙周边的小众旅行目的地，比如浏阳的农庄、湘潭的老街，这些地方不仅有美丽的自然风光，还有很多当地特色的农家菜和传统小吃。每次计划出行，我都会在马蜂窝上看别人的游记，参考他们的美食打卡清单和行程安排，然后结合自己的喜好制定出专属的旅行计划。此外，平台上还有很多实用的旅行小贴士，比如如何避开旅游旺季的人流、如何买到性价比高的门票，这些内容都能让旅行变得更加轻松愉快。</p>
+                <a href="https://www.mafengwo.cn" target="_blank">点击访问马蜂窝</a>
+            </div>
+        </section>
+
+        <!-- 5. 微信读书 -->
+        <section id="read" class="website-card">
+            <div class="website-img">
+                <img src="https://weread.qq.com/favicon.ico" alt="微信读书LOGO">
+            </div>
+            <div class="website-info">
+                <h3>微信读书</h3>
+                <p>微信读书是腾讯公司推出的一款电子阅读平台，凭借着简洁的界面、丰富的藏书和便捷的社交功能，深受广大读者的喜爱。平台上拥有超过50万本正版电子书，涵盖小说、散文、历史、哲学、美食、科普等多个品类，无论是经典名著还是畅销新书，都能在上面找到。对于我这个美食爱好者来说，最常看的就是美食文化类的书籍，比如《舌尖上的中国》《中国传统糕点图鉴》《长沙美食寻味记》等，这些书籍不仅介绍了各种美食的做法，还讲述了美食背后的历史故事和文化渊源，让我对美食有了更深刻的理解。此外，微信读书的“共读”功能也很有意思，我可以和同学一起加入同一个共读小组，边读书边交流心得，让阅读变得不再孤单。平台还会根据用户的阅读喜好推荐相关书籍，帮助我发现更多有趣的美食读物。</p>
+                <a href="https://weread.qq.com" target="_blank">点击访问微信读书</a>
+            </div>
+        </section>
+
+        <!-- 6. 站酷 -->
+        <section id="design" class="website-card">
+            <div class="website-img">
+                <img src="https://ts4.tc.mm.bing.net/th/id/OIP-C.HguWqpTHLhklo74DeO2DbwHaFj?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="站酷LOGO">
+            </div>
+            <div class="website-info">
+                <h3>站酷</h3>
+                <p>站酷是国内最具影响力的设计师社区，汇聚了数百万平面设计、插画、摄影、UI设计、工业设计等领域的创作者，他们会在平台上分享自己的原创作品和设计心得。作为一个喜欢研究美食的学生，我虽然不是专业的设计师，但却很喜欢逛这个网站，尤其是美食包装设计和美食插画分区。这里的设计师们总能用独特的创意和色彩，将美食的魅力展现得淋漓尽致，比如一款绿豆糕的包装，他们会结合传统的中式纹样和清新的色彩，让包装看起来既美观又有文化底蕴。这些设计作品给了我很多灵感，我会把这些灵感运用到自己的美食笔记排版中，让笔记变得更加生动有趣。此外，平台上还有很多设计教程和经验分享，虽然和我的专业关联不大，但却能提升我的审美能力，让我在生活中发现更多的美。</p>
+                <a href="https://www.zcool.com.cn" target="_blank">点击访问站酷</a>
+            </div>
+        </section>
+
+        <!-- 其他导航占位板块 -->
+        <section id="share" class="website-card">
+            <div class="website-img">
+                <img src="https://cdn-icons-png.flaticon.com/128/1031/1031947.png" alt="同学分享">
+            </div>
+            <div class="website-info">
+                <h3>同学分享</h3>
+                <p>除了丁若兰和刘瑀涵推荐的这两个宝藏网站，班里的其他同学也会经常分享各自喜欢的平台。比如追剧达人推荐的豆瓣电影，能找到最专业的影评和影片推荐；编程大佬分享的GitHub，能下载到各种实用的代码和项目案例；美妆爱好者分享的小红书，能学到很多日常妆容和穿搭技巧。我们还会建立一个共享文档，把大家发现的优质网站都整理进去，方便彼此查阅。有时候我们还会围绕某个网站展开讨论，比如分享下厨房的隐藏菜谱、交流中国大学MOOC的选课技巧，这些分享不仅丰富了我们的课余生活，也让我们之间的关系变得更加融洽。</p>
+            </div>
+        </section>
+
+        <section id="rank" class="website-card">
+            <div class="website-img">
+                <img src="https://cdn-icons-png.flaticon.com/128/1267/1267992.png" alt="推荐排行">
+            </div>
+            <div class="website-info">
+                <h3>推荐排行</h3>
+                <p>根据我的日常使用频率和喜爱程度，我给这6个网站排了一个小小的榜单：第一名是下厨房，毕竟对于美食爱好者来说，能亲手做出美味的食物是最幸福的事情；第二名是中国大学MOOC，作为学生，学习永远是第一位的，这个网站给我的专业学习带来了很大的帮助；第三名是哔哩哔哩，它既能满足我对美食的探索欲，又能让我在课余时间放松心情；第四名是马蜂窝，它让我发现了长沙周边更多有趣的美食目的地；第五名是微信读书，它让我了解了更多美食背后的文化故事；第六名是站酷，它提升了我的审美能力，让我的美食笔记变得更加精致。当然，这个榜单只是我的个人看法，每个网站都有其独特的价值，都值得大家去探索。</p>
+            </div>
+        </section>
+
+        <section id="skill" class="website-card">
+            <div class="website-img">
+                <img src="https://cdn-icons-png.flaticon.com/128/10036/10036236.png" alt="使用技巧">
+            </div>
+            <div class="website-info">
+                <h3>使用技巧</h3>
+                <p>经过长时间的使用，我也总结出了一些这些网站的实用小技巧。下厨房可以利用“收藏夹分类”功能，把菜谱按照家常菜、甜品、小吃等类别进行整理，方便后续查找；中国大学MOOC可以下载课程课件和视频，在没有网络的情况下也能学习；哔哩哔哩可以开启“护眼模式”和“倍速播放”，既保护眼睛又能提高学习效率；马蜂窝可以使用“行程规划”工具，输入目的地和出行天数，自动生成详细的行程安排；微信读书可以开启“听书”功能，在做手工或者运动的时候也能“阅读”书籍；站酷可以使用“作品收藏”功能，把喜欢的设计作品保存下来，方便后续查看和参考。这些小技巧虽然简单，但却能大大提升使用体验，让这些网站更好地为我们服务。</p>
+            </div>
+        </section>
+
+        <section id="collect" class="website-card">
+            <div class="website-img">
+                <img src="https://cdn-icons-png.flaticon.com/128/875/875699.png" alt="收藏夹">
+            </div>
+            <div class="website-info">
+                <h3>收藏夹</h3>
+                <p>为了方便快速访问这些喜欢的网站，我把它们都整理到了浏览器的收藏夹里，并且按照“美食”“学习”“娱乐”“旅行”“阅读”“设计”六个类别进行了分组，这样每次打开浏览器就能一目了然地找到想要的网站。我还把下厨房和中国大学MOOC这两个最常用的网站添加到了浏览器的快捷启动栏，只需要点击一下就能进入。此外，我还会定期整理收藏夹，把一些不常用的网站删除，避免收藏夹变得杂乱无章。有时候我还会和同学分享我的收藏夹，他们也会把自己发现的优质网站添加进来，让我的收藏夹变得越来越丰富。</p>
+            </div>
+        </section>
+
+        <section id="about" class="website-card">
+            <div class="website-img">
+                <img src="https://pic.616pic.com/ys_bnew_img/00/14/35/iTPZXS05PP.jpg" alt="关于本站">
+                </div>
+                <div class="website-info">
+                    <h3>关于本站</h3>
+                    <p>本网页是我作为长沙大二学生的个人网站分享清单，所有网站链接均为官方正版地址，仅供学习交流和生活娱乐使用，禁止用于商业用途。网页设计采用了清新的莫兰迪配色，搭配丰富的动画效果，旨在为访问者提供舒适的浏览体验。网页中所提到的丁若兰同学和刘瑀涵同学都是我的同班同学，我们经常一起分享学习和生活中的趣事。如果大家有其他优质的网站推荐，欢迎在评论区留言交流，让我们一起发现更多好用的网站，丰富我们的学习和生活。</p>
+                </div>
+            </section>
+        </div>
+
+    <!-- 底部 -->
+    <div class="footer">
+        <p>© 2025 姜欣宇的网站分享 | 学号：202425180118</p>
+    </div>
+
+    <!-- JavaScript 事件：导航栏点击高亮+滚动变色 -->
+    <script>
+        // 导航栏点击高亮
+        const navLinks = document.querySelectorAll(".nav a");
+        navLinks.forEach(link => {
+            link.addEventListener("click", function() {
+                navLinks.forEach(item => item.classList.remove("active"));
+                this.classList.add("active");
+            });
+        });
+
+        // 导航栏滚动变色
+        window.addEventListener("scroll", function() {
+            const nav = document.querySelector(".nav");
+            if (window.scrollY > 100) {
+                nav.style.backgroundColor = "#faf8f5";
+                nav.style.boxShadow = "0 4px 12px rgba(0,0,0,0.12)";
+            } else {
+                nav.style.backgroundColor = "#fff";
+                nav.style.boxShadow = "0 2px 8px rgba(0,0,0,0.08)";
+            }
+        });
+
+        // 卡片标题点击弹窗
+        const cardTitles = document.querySelectorAll(".website-info h3");
+        cardTitles.forEach(title => {
+            title.addEventListener("click", function() {
+                alert(`你点击了【${this.textContent}】的标题，快去探索这个网站吧！`);
+            });
+        });
+    </script>
+</body>
+</html>
